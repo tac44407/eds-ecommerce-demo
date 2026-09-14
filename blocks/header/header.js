@@ -1,4 +1,5 @@
 import { getMetadata } from '../../scripts/aem.js';
+import { getCount } from '../../scripts/cart.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 // media query match that indicates mobile/tablet width
@@ -168,4 +169,32 @@ export default async function decorate(block) {
   navWrapper.className = 'nav-wrapper';
   navWrapper.append(nav);
   block.append(navWrapper);
+
+  const updateCartBadge = () => {
+    const cartLink = nav.querySelector('.nav-tools a[href$="/cart"]');
+    if (!cartLink) return;
+    let badge = cartLink.querySelector('.nav-cart-count');
+    if (!badge) {
+      badge = document.createElement('span');
+      badge.className = 'nav-cart-count';
+      cartLink.append(badge);
+    }
+    const count = getCount();
+    badge.textContent = String(count);
+    badge.hidden = count < 1;
+  };
+  updateCartBadge();
+  window.addEventListener('cart:change', updateCartBadge);
+
+  const cartLink = nav.querySelector('.nav-tools a[href$="/cart"]');
+  if (cartLink) {
+    cartLink.setAttribute('aria-haspopup', 'dialog');
+    cartLink.addEventListener('click', (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (['/cart', '/checkout'].includes(window.location.pathname)) return;
+      if (!document.querySelector('.mini-cart')) return;
+      event.preventDefault();
+      window.dispatchEvent(new CustomEvent('mini-cart:open'));
+    });
+  }
 }

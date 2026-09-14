@@ -1,0 +1,131 @@
+main > .section:has(.account) {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+main > .section:has(.account) > div {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.account-title {
+  margin: 0 0 32px;
+  color: #131313;
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 44px;
+}
+
+.account-layout {
+  display: grid;
+  gap: 40px;
+}
+
+.account-profile,
+.account-orders {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.account h2 {
+  margin: 0;
+  color: #131313;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.account-profile dl {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.account-profile dt {
+  margin: 0;
+  color: #575757;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.account-profile dd {
+  margin: 4px 0 0;
+  color: #131313;
+  font-size: 16px;
+}
+
+.account-note {
+  margin: 0;
+  color: #575757;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.account-order {
+  display: grid;
+  gap: 8px;
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.account-order-header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.account-order-id,
+.account-order-meta {
+  margin: 0;
+  color: #131313;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.account-order-meta,
+.account-order-items {
+  color: #575757;
+  font-weight: 400;
+}
+
+.account-order-items {
+  margin: 0;
+  font-size: 14px;
+}
+
+.account-order-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #94ff5e;
+  color: #131313;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.account-orders .button.primary {
+  justify-self: start;
+  border-color: #94ff5e;
+  background: #94ff5e;
+  color: #131313;
+}
+
+.account-orders .button.primary:hover {
+  border-color: #94ff5e;
+  background: #7ee64a;
+  color: #131313;
+}
+
+@media (width >= 900px) {
+  main > .section:has(.account) {
+    padding: 48px 40px 80px;
+  }
+
+  .account-layout {
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 80px;
+  }
+}

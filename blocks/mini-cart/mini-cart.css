@@ -1,0 +1,128 @@
+.mini-cart-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: flex-end;
+  background: rgba(19, 19, 19, 0.4);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.mini-cart-wrapper.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.mini-cart {
+  display: flex;
+  flex-direction: column;
+  width: min(398px, 100%);
+  height: 100%;
+  background: #fff;
+  color: #131313;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+}
+
+.mini-cart-wrapper.is-open .mini-cart {
+  transform: none;
+}
+
+.mini-cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 72px;
+  padding: 20px;
+  border-bottom: 1px solid #d1d1d1;
+}
+
+.mini-cart-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28px;
+}
+
+.mini-cart-close {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #131313;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.mini-cart-items {
+  display: grid;
+  align-content: start;
+  gap: 20px;
+  flex: 1;
+  min-height: 0;
+  padding: 20px;
+  overflow: auto;
+}
+
+.mini-cart-empty {
+  display: grid;
+  gap: 16px;
+  justify-items: start;
+  padding: 20px;
+}
+
+.mini-cart-empty p {
+  margin: 0;
+  color: #575757;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.mini-cart-footer {
+  display: grid;
+  gap: 8px;
+  padding: 20px;
+  border-top: 1px solid #d1d1d1;
+}
+
+.mini-cart-subtotal {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 12px;
+  color: #131313;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.mini-cart .button,
+.mini-cart-empty .button {
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 20px;
+  border-radius: 500px;
+}
+
+.mini-cart .button.primary,
+.mini-cart-empty .button.primary,
+.mini-cart .button.primary:hover,
+.mini-cart-empty .button.primary:hover {
+  border-color: #94ff5e;
+  background: #94ff5e;
+  color: #131313;
+}
+
+.mini-cart .button.secondary,
+.mini-cart .button.secondary:hover {
+  border-color: #d1d1d1;
+  background: #fff;
+  color: #131313;
+}

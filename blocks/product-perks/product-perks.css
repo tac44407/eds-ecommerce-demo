@@ -1,0 +1,47 @@
+main > .section.product-perks-container {
+  margin: 0;
+  border-top: 1px solid #eee;
+}
+
+main > .section.product-perks-container > div {
+  max-width: 1440px;
+  padding: 30px 24px;
+}
+
+@media (width >= 900px) {
+  main > .section.product-perks-container > div {
+    padding: 30px 80px;
+  }
+}
+
+.product-perks {
+  display: grid;
+  gap: 20px;
+}
+
+@media (width >= 900px) {
+  .product-perks {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+.product-perks-item {
+  display: grid;
+  gap: 2px;
+}
+
+.product-perks-title {
+  margin: 0;
+  color: #131313;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.product-perks-note {
+  margin: 0;
+  color: #575757;
+  font-size: 16px;
+  line-height: 24px;
+}

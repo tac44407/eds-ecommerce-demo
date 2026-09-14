@@ -142,10 +142,11 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
 /* brand */
 header .nav-brand {
   grid-area: brand;
-  flex-basis: 128px;
-  font-size: var(--heading-font-size-s);
-  font-weight: 700;
-  line-height: 1;
+  flex-basis: auto;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 36px;
+  letter-spacing: -0.01em;
 }
 
 header nav .nav-brand img {
@@ -170,11 +171,12 @@ header nav[aria-expanded='true'] .nav-sections {
 header nav .nav-sections ul {
   list-style: none;
   padding-left: 0;
-  font-size: var(--body-font-size-s);
+  font-size: 14px;
+  line-height: 20px;
 }
 
 header nav .nav-sections ul > li {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 header nav .nav-sections ul > li > ul {
@@ -269,4 +271,42 @@ header nav .nav-sections ul > li > ul > li {
 /* tools */
 header nav .nav-tools {
   grid-area: tools;
+}
+
+header nav .nav-tools .default-content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+header nav .nav-tools a {
+  display: flex;
+  align-items: center;
+}
+
+header nav .nav-tools img {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+header nav .nav-tools a[href$='/cart'] {
+  position: relative;
+}
+
+header nav .nav-cart-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 12px;
+  background: #131313;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 16px;
+  text-align: center;
 }

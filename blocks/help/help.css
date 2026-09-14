@@ -1,0 +1,41 @@
+main > .section:has(.help) {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+main > .section:has(.help) > div {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.help h1 {
+  margin: 0 0 16px;
+  color: #131313;
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 44px;
+}
+
+.help p {
+  margin: 0 0 16px;
+  color: #575757;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.help .button.primary,
+.help .button.primary:hover,
+.help .button.primary:focus-visible {
+  border-color: #94ff5e;
+  background: #94ff5e;
+  color: #131313;
+}
+
+@media (width >= 900px) {
+  main > .section:has(.help) {
+    padding: 48px 40px 80px;
+  }
+}

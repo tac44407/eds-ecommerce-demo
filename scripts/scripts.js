@@ -4,10 +4,12 @@ import {
   decorateIcons,
   decorateSections,
   decorateBlocks,
+  decorateBlock,
   decorateTemplateAndTheme,
   waitForFirstImage,
   loadSection,
   loadSections,
+  loadBlock,
   loadCSS,
   buildBlock,
 } from './aem.js';
@@ -74,11 +76,122 @@ function buildWidgetAutoBlocks(main) {
 }
 
 /**
+ * Turns authored product columns + headings into PDP blocks.
+ * @param {Element} main The container element
+ */
+function buildProductAutoBlocks(main) {
+  if (!window.location.pathname.startsWith('/product/')) return;
+  // Fragments also call decorateMain(); footer columns must not become a PDP.
+  if (main !== document.querySelector('main')) return;
+
+  const columns = main.querySelector('.columns');
+  if (columns) {
+    const cells = columns.querySelector(':scope > div')?.children || [];
+    const [left, right] = cells;
+    if (left?.querySelector('picture') && right) {
+      const gallery = buildBlock(
+        'product-gallery',
+        [...left.querySelectorAll('picture')].map((picture) => [{ elems: [picture] }]),
+      );
+      const details = buildBlock('product-details', { elems: [...right.children] });
+      columns.replaceWith(gallery, details);
+    }
+  }
+
+  const productSection = [...main.children].find((section) => section.querySelector('.product-gallery'));
+  const infoSection = [...main.children].find((section) => (
+    section.querySelector('h2') && !section.querySelector('.product-gallery')
+  ));
+  if (infoSection) {
+    const groups = [];
+    let current;
+    [...infoSection.children].forEach((child) => {
+      if (child.matches('h2')) {
+        current = { heading: child, body: [] };
+        groups.push(current);
+      } else if (current) {
+        current.body.push(child);
+      }
+    });
+    if (groups.length) {
+      const accordion = buildBlock(
+        'product-accordion',
+        groups.map((group) => [{ elems: [group.heading] }, { elems: group.body }]),
+      );
+      if (productSection) {
+        productSection.append(accordion);
+        infoSection.remove();
+      } else {
+        infoSection.replaceChildren(accordion);
+      }
+    }
+  }
+
+  if (productSection && !main.querySelector('.product-perks')) {
+    const perksSection = document.createElement('div');
+    perksSection.append(buildBlock('product-perks', [
+      ['Free Shipping', 'On orders over $250'],
+      ['Free Returns', 'On full priced items only'],
+      ['2 Year Warranty', 'As standard'],
+    ]));
+    productSection.after(perksSection);
+  }
+}
+
+function buildHelpAutoBlock(main) {
+  if (window.location.pathname !== '/help') return;
+  if (main !== document.querySelector('main')) return;
+  const section = main.querySelector(':scope > div');
+  if (!section || section.querySelector('.help')) return;
+  section.replaceChildren(buildBlock('help', { elems: [...section.children] }));
+}
+
+function isHomePath() {
+  const { pathname } = window.location;
+  return pathname === '/' || pathname === '/index';
+}
+
+/**
+ * Turns the authored home heading + image + CTA into a hero, then splits
+ * the collection heading/grid into their own section.
+ */
+function buildHeroAutoBlock(main) {
+  if (!isHomePath()) return;
+  if (main !== document.querySelector('main')) return;
+  const section = main.querySelector(':scope > div');
+  if (!section || section.querySelector('.hero')) return;
+  const heading = section.querySelector('h1');
+  const picture = section.querySelector('picture');
+  if (!heading || !picture) return;
+
+  const heroElems = [];
+  [...section.children].some((child) => {
+    if (child.matches('h2') || child.classList.contains('category-grid')) return true;
+    heroElems.push(child);
+    return false;
+  });
+  if (!heroElems.length) return;
+
+  const rest = [...section.children].filter((child) => !heroElems.includes(child));
+  section.classList.remove('highlight');
+  section.replaceChildren(buildBlock('hero', { elems: heroElems }));
+  if (rest.length) {
+    const next = document.createElement('div');
+    next.append(...rest);
+    section.after(next);
+  }
+  [...main.children].forEach((child) => {
+    if (!child.children.length) child.remove();
+  });
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
 function buildAutoBlocks(main) {
   try {
+    buildProductAutoBlocks(main);
     // auto load `*/fragments/*` references
     const fragments = [...main.querySelectorAll('a[href*="/fragments/"]')].filter((f) => !f.closest('.fragment'));
     if (fragments.length > 0) {
@@ -97,6 +210,8 @@ function buildAutoBlocks(main) {
       });
     }
     buildWidgetAutoBlocks(main);
+    buildHelpAutoBlock(main);
+    buildHeroAutoBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -142,6 +257,17 @@ function decorateButtons(main) {
   });
 }
 
+function stackProductInfo(main) {
+  const detailsWrap = main.querySelector('.product-details-wrapper');
+  const accordionWrap = main.querySelector('.product-accordion-wrapper');
+  if (!detailsWrap || !accordionWrap) return;
+  if (detailsWrap.parentElement !== accordionWrap.parentElement) return;
+  const stack = document.createElement('div');
+  stack.className = 'product-info-stack';
+  detailsWrap.before(stack);
+  stack.append(detailsWrap, accordionWrap);
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -153,6 +279,7 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   decorateButtons(main);
+  stackProductInfo(main);
 }
 
 /**
@@ -179,12 +306,36 @@ async function loadEager(doc) {
   }
 }
 
+async function loadPromoBar(doc) {
+  if (sessionStorage.getItem('aurelia-promo-dismissed')) return;
+  const holder = document.createElement('aside');
+  const block = buildBlock('promo-bar', '');
+  holder.append(block);
+  doc.body.prepend(holder);
+  decorateBlock(block);
+  await loadBlock(block);
+  if (!block.isConnected || !block.querySelector('.promo-bar-copy')) {
+    holder.remove();
+  }
+}
+
+async function loadMiniCart(doc) {
+  const holder = document.createElement('aside');
+  const block = buildBlock('mini-cart', '');
+  holder.append(block);
+  doc.body.append(holder);
+  decorateBlock(block);
+  await loadBlock(block);
+}
+
 /**
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
+  loadPromoBar(doc);
   loadHeader(doc.querySelector('body > header'));
+  loadMiniCart(doc);
 
   const main = doc.querySelector('main');
   await loadSections(main);

@@ -1,0 +1,54 @@
+.product-accordion {
+  width: 100%;
+}
+
+.product-accordion-item {
+  border-bottom: 1px solid #eee;
+}
+
+.product-accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px 0;
+  border: 0;
+  background: transparent;
+  color: #131313;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 20px;
+  text-align: left;
+  text-transform: none;
+  cursor: pointer;
+}
+
+.product-accordion-trigger::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #131313;
+  border-bottom: 2px solid #131313;
+  transform: rotate(45deg);
+}
+
+.product-accordion-trigger[aria-expanded='true']::after {
+  transform: rotate(-135deg);
+}
+
+.product-accordion-panel {
+  padding: 0 0 20px;
+  color: #575757;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.product-accordion-panel > *:first-child {
+  margin-top: 0;
+}
+
+.product-accordion-panel ul {
+  margin: 0;
+  padding-left: 1.2em;
+}

@@ -1,0 +1,56 @@
+.promo-bar-wrapper {
+  background: #94ff5e;
+}
+
+.promo-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 12px 40px;
+  color: #131313;
+  text-align: center;
+}
+
+.promo-bar-copy {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.promo-bar-copy strong {
+  font-weight: 700;
+}
+
+.promo-bar-close {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #131313;
+  font-size: 20px;
+  line-height: 1;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+@media (width < 900px) {
+  body:has(.promo-bar) {
+    --promo-height: 44px;
+  }
+
+  body:has(.promo-bar) header {
+    height: calc(var(--nav-height) + var(--promo-height));
+  }
+
+  body:has(.promo-bar) header .nav-wrapper {
+    top: var(--promo-height);
+  }
+}

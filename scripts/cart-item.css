@@ -1,0 +1,136 @@
+.cart-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.cart-item-media {
+  flex: 0 0 96px;
+  overflow: hidden;
+  width: 96px;
+  height: 96px;
+  border-radius: 12px;
+  background: #eee;
+}
+
+.cart-item-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cart-item-info {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cart-item-name,
+.cart-item-price {
+  margin: 0;
+  color: #131313;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.cart-item-meta {
+  margin: 0;
+  color: #575757;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.cart-item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: center;
+}
+
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cart-item-qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid #d1d1d1;
+  border-radius: 8px;
+}
+
+.cart-item-qty button,
+.cart-item-qty input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #131313;
+  font-size: 16px;
+  line-height: 1;
+  text-align: center;
+}
+
+.cart-item-qty button {
+  cursor: pointer;
+}
+
+.cart-item-qty input {
+  width: 40px;
+  appearance: textfield;
+}
+
+.cart-item-qty input::-webkit-outer-spin-button,
+.cart-item-qty input::-webkit-inner-spin-button {
+  appearance: none;
+}
+
+.cart-item-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #131313;
+  cursor: pointer;
+}
+
+.cart-item-remove img {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.cart-item-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.cart-item-small .cart-item-actions {
+  justify-content: space-between;
+}
+
+@media (width >= 900px) {
+  .cart-item:not(.cart-item-small) {
+    align-items: center;
+  }
+
+  .cart-item:not(.cart-item-small) .cart-item-actions {
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+  }
+}
