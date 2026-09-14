@@ -78,19 +78,19 @@ footer .columns > div > div p:first-child {
   color: #131313;
 }
 
+footer .columns-5-cols > div > div:first-child p {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28px;
+  color: #131313;
+}
+
 footer .columns-5-cols > div > div:first-child p:first-child,
 footer .columns-5-cols > div > div:first-child strong {
   font-size: 24px;
   font-weight: 500;
   line-height: 28px;
   color: #575757;
-}
-
-footer .columns-5-cols > div > div:first-child p {
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 28px;
-  color: #131313;
 }
 
 @media (width >= 900px) {
