@@ -21,8 +21,45 @@ main > .section:has(.category-grid) h2 {
 
 .category-grid-crumb {
   margin: 0 0 24px;
+}
+
+.category-grid-crumb ol {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.category-grid-crumb li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   color: #575757;
   font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.category-grid-crumb li:not(:last-child)::after {
+  content: '';
+  width: 16px;
+  height: 16px;
+  background: #575757;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M6 3.5 11 8l-5 4.5' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 16px 16px no-repeat;
+}
+
+.category-grid-crumb a:any-link {
+  color: #131313;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.category-grid-crumb a:hover {
+  color: #131313;
+  text-decoration: underline;
 }
 
 .category-grid-title {

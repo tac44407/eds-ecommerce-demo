@@ -2,6 +2,38 @@ import { loadCSS } from '../../scripts/aem.js';
 import getProducts from '../../scripts/catalog.js';
 import createProductTeaser from '../../scripts/product-teaser.js';
 
+function decorateCrumb(section) {
+  const crumb = [...section.querySelectorAll('p')].find((p) => p.textContent.includes('/'));
+  if (!crumb) return;
+  const labels = crumb.textContent.split('/').map((part) => part.trim()).filter(Boolean);
+  if (!labels.length) return;
+
+  const authored = [...crumb.querySelectorAll('a')];
+  const nav = document.createElement('nav');
+  nav.className = 'category-grid-crumb';
+  nav.setAttribute('aria-label', 'Breadcrumb');
+  const list = document.createElement('ol');
+
+  labels.forEach((label, index) => {
+    const item = document.createElement('li');
+    const last = index === labels.length - 1;
+    if (last) {
+      item.setAttribute('aria-current', 'page');
+      item.textContent = label;
+    } else {
+      const link = document.createElement('a');
+      const match = authored.find((anchor) => anchor.textContent.trim() === label);
+      link.href = match?.getAttribute('href') || '/';
+      link.textContent = label;
+      item.append(link);
+    }
+    list.append(item);
+  });
+
+  nav.append(list);
+  crumb.replaceWith(nav);
+}
+
 function decorateHeader(section) {
   if (!section) return;
   const heading = section.querySelector('h1');
@@ -13,8 +45,7 @@ function decorateHeader(section) {
     heading.after(wrap);
     wrap.append(heading, count);
   }
-  const crumb = [...section.querySelectorAll('p')].find((p) => p.textContent.includes('/'));
-  if (crumb) crumb.className = 'category-grid-crumb';
+  decorateCrumb(section);
 }
 
 export default async function decorate(block) {
