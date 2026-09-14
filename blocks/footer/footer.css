@@ -32,11 +32,27 @@ footer .footer p {
 }
 
 footer .footer .section {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  width: 100%;
   margin: 0;
   padding: 0;
 }
 
+footer .columns-wrapper,
+footer .newsletter-wrapper {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
 footer .footer .default-content-wrapper {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding-top: 24px;
+  border-top: 1px solid #eee;
   color: #575757;
 }
 
