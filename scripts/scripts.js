@@ -136,6 +136,13 @@ function buildProductAutoBlocks(main) {
     ]));
     productSection.after(perksSection);
   }
+
+  if (productSection && !main.querySelector('.related-products')) {
+    const relatedSection = document.createElement('div');
+    relatedSection.append(buildBlock('related-products', [['Featured items']]));
+    const perksSection = [...main.children].find((section) => section.querySelector('.product-perks'));
+    (perksSection || productSection).after(relatedSection);
+  }
 }
 
 function buildHelpAutoBlock(main) {

@@ -39,8 +39,8 @@ header nav[aria-expanded='true'] {
     display: flex;
     justify-content: space-between;
     gap: 0 32px;
-    max-width: 1264px;
-    padding: 0 32px;
+    max-width: 1440px;
+    padding: 0 40px;
   }
 
   header nav[aria-expanded='true'] {
@@ -298,7 +298,7 @@ header nav .nav-tools a[href$='/cart'] {
 header nav .nav-cart-count {
   position: absolute;
   top: -8px;
-  right: -10px;
+  right: -4px;
   min-width: 16px;
   height: 16px;
   padding: 0 4px;

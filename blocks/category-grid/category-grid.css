@@ -68,7 +68,12 @@ main > .section:has(.category-grid) h2 {
 
 @media (width >= 900px) {
   main > .section:has(.category-grid) {
-    padding: 40px 40px 80px;
+    padding: 80px 40px;
+  }
+
+  main > .section:has(.category-grid) h2 {
+    font-size: 40px;
+    line-height: 44px;
   }
 
   .category-grid-title h1,

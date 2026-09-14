@@ -12,6 +12,8 @@ main > .section:has(.checkout-summary) > div {
 
 .checkout-title {
   margin: 0 0 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #d1d1d1;
   color: #131313;
   font-size: 40px;
   font-weight: 400;
@@ -30,7 +32,6 @@ main > .section:has(.checkout-summary) > div {
 }
 
 .checkout-ship h2,
-.checkout-summary-panel h2,
 .checkout-done h2 {
   margin: 0 0 12px;
   color: #131313;
@@ -99,11 +100,16 @@ main > .section:has(.checkout-summary) > div {
 
 .checkout-summary-panel {
   display: grid;
-  gap: 16px;
+  gap: 0;
   align-self: start;
-  padding: 24px;
-  border: 1px solid #eee;
-  border-radius: 16px;
+}
+
+.checkout-summary-panel h2 {
+  margin: 0;
+  color: #131313;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 28px;
 }
 
 .checkout-summary-panel dl {
@@ -111,27 +117,34 @@ main > .section:has(.checkout-summary) > div {
   grid-template-columns: 1fr auto;
   gap: 12px 16px;
   margin: 0;
+  padding: 20px 0;
 }
 
 .checkout-summary-panel dt,
 .checkout-summary-panel dd {
   margin: 0;
-  color: #575757;
-  font-size: 16px;
+  color: #131313;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 .checkout-summary-panel dt:last-of-type,
 .checkout-summary-panel dd:last-of-type {
-  padding-top: 12px;
-  border-top: 1px solid #eee;
-  color: #131313;
+  padding-top: 20px;
+  border-top: 1px solid #d1d1d1;
+  font-size: 16px;
   font-weight: 600;
+  line-height: 24px;
 }
 
 .checkout-summary-panel .button.primary,
 .checkout-empty .button.primary,
 .checkout-done .button.primary {
-  justify-self: start;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 20px;
+  border-radius: 500px;
   border-color: #94ff5e;
   background: #94ff5e;
   color: #131313;
@@ -164,7 +177,7 @@ main > .section:has(.checkout-summary) > div {
   }
 
   .checkout-layout {
-    grid-template-columns: minmax(0, 1fr) 360px;
+    grid-template-columns: minmax(0, 1fr) 320px;
     gap: 80px;
   }
 }

@@ -63,7 +63,9 @@ function render(block) {
   layout.className = 'cart-layout';
   const list = document.createElement('div');
   list.className = 'cart-items';
-  items.forEach((item) => list.append(createCartItem(item, { onQty: updateQty, onRemove: removeItem })));
+  items.forEach((item) => {
+    list.append(createCartItem(item, { onQty: updateQty, onRemove: removeItem }));
+  });
   layout.append(list, createSummary());
   block.replaceChildren(layout);
 }
